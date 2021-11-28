@@ -1,0 +1,81 @@
+name:                aoc2021
+version:             0.1.0.0
+github:              "typesafety/aoc2021"
+license:             BSD3
+author:              "Thomas Li"
+maintainer:          "ailoodee@gmail.com"
+copyright:           "2021 Thomas Li"
+
+extra-source-files:
+- README.md
+description:         Solutions for Advent of Code 2021
+
+dependencies:
+- base >= 4.7 && < 5
+- containers
+- polysemy
+- polysemy-plugin
+- relude
+- text
+
+library:
+  source-dirs: src
+  exposed-modules:
+    - Solutions.Day0
+
+executables:
+  aoc2021-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - aoc2021
+
+tests:
+  aoc2021-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - aoc2021
+
+default-extensions:
+- NoImplicitPrelude
+
+- DataKinds
+- DerivingVia
+- FlexibleContexts
+- GADTs
+- ImportQualifiedPost
+- LambdaCase
+- MultiWayIf
+- OverloadedLabels
+- OverloadedLists
+- OverloadedStrings
+- PolyKinds
+- RankNTypes
+- ScopedTypeVariables
+- TypeApplications
+- TypeFamilies
+- TypeOperators
+
+ghc-options:
+# Warnings
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wpartial-fields
+- -Wredundant-constraints
+
+# Plugin for better Polysemy type inference
+- -fplugin=Polysemy.Plugin
+

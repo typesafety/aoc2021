@@ -1,0 +1,129 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           aoc2021
+version:        0.1.0.0
+description:    Solutions for Advent of Code 2021
+homepage:       https://github.com/typesafety/aoc2021#readme
+bug-reports:    https://github.com/typesafety/aoc2021/issues
+author:         Thomas Li
+maintainer:     ailoodee@gmail.com
+copyright:      2021 Thomas Li
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/typesafety/aoc2021
+
+library
+  exposed-modules:
+      Solutions.Day0
+  other-modules:
+      Paths_aoc2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      NoImplicitPrelude
+      DataKinds
+      DerivingVia
+      FlexibleContexts
+      GADTs
+      ImportQualifiedPost
+      LambdaCase
+      MultiWayIf
+      OverloadedLabels
+      OverloadedLists
+      OverloadedStrings
+      PolyKinds
+      RankNTypes
+      ScopedTypeVariables
+      TypeApplications
+      TypeFamilies
+      TypeOperators
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -fplugin=Polysemy.Plugin
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , polysemy
+    , polysemy-plugin
+    , relude
+    , text
+  default-language: Haskell2010
+
+executable aoc2021-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_aoc2021
+  hs-source-dirs:
+      app
+  default-extensions:
+      NoImplicitPrelude
+      DataKinds
+      DerivingVia
+      FlexibleContexts
+      GADTs
+      ImportQualifiedPost
+      LambdaCase
+      MultiWayIf
+      OverloadedLabels
+      OverloadedLists
+      OverloadedStrings
+      PolyKinds
+      RankNTypes
+      ScopedTypeVariables
+      TypeApplications
+      TypeFamilies
+      TypeOperators
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aoc2021
+    , base >=4.7 && <5
+    , containers
+    , polysemy
+    , polysemy-plugin
+    , relude
+    , text
+  default-language: Haskell2010
+
+test-suite aoc2021-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_aoc2021
+  hs-source-dirs:
+      test
+  default-extensions:
+      NoImplicitPrelude
+      DataKinds
+      DerivingVia
+      FlexibleContexts
+      GADTs
+      ImportQualifiedPost
+      LambdaCase
+      MultiWayIf
+      OverloadedLabels
+      OverloadedLists
+      OverloadedStrings
+      PolyKinds
+      RankNTypes
+      ScopedTypeVariables
+      TypeApplications
+      TypeFamilies
+      TypeOperators
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aoc2021
+    , base >=4.7 && <5
+    , containers
+    , polysemy
+    , polysemy-plugin
+    , relude
+    , text
+  default-language: Haskell2010
