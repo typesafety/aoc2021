@@ -12,16 +12,20 @@ description:         Solutions for Advent of Code 2021
 
 dependencies:
 - base >= 4.7 && < 5
+
 - containers
 - polysemy
 - polysemy-plugin
 - relude
 - text
+- unordered-containers
 
 library:
   source-dirs: src
   exposed-modules:
-    - Solutions.Day0
+    - CustomPrelude
+
+    - Solutions.Day1
 
 executables:
   aoc2021-exe:
@@ -31,8 +35,12 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    - -O1
     dependencies:
     - aoc2021
+    when:
+    - condition: false
+      other-modules: Paths_aoc2021
 
 tests:
   aoc2021-test:
@@ -76,6 +84,8 @@ ghc-options:
 - -Wpartial-fields
 - -Wredundant-constraints
 
+# Exceptions
+- -Wno-missing-export-lists
+
 # Plugin for better Polysemy type inference
 - -fplugin=Polysemy.Plugin
-

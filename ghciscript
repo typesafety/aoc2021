@@ -1,0 +1,12 @@
+import Prelude
+
+:set prompt "aoc> "
+:set -ferror-spans -freverse-errors -fprint-expanded-synonyms
+:set -fprint-explicit-foralls
+
+:def hoogle \s -> return $ ":! hoogle --count=15 \"" ++ s ++ "\""
+
+:def pretty \_ -> return (":set -interactive-print=Text.Pretty.Simple.pPrint")
+:def no-pretty \_ -> return (":set -interactive-print System.IO.print")
+:set -interactive-print=Text.Pretty.Simple.pPrint
+
