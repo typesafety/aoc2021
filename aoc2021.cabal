@@ -48,6 +48,7 @@ library
       TypeApplications
       TypeFamilies
       TypeOperators
+      UnboxedTuples
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -fplugin=Polysemy.Plugin
   build-depends:
       base >=4.7 && <5
@@ -81,6 +82,7 @@ executable aoc2021-exe
       TypeApplications
       TypeFamilies
       TypeOperators
+      UnboxedTuples
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N -O1
   build-depends:
       aoc2021
@@ -118,6 +120,7 @@ test-suite aoc2021-test
       TypeApplications
       TypeFamilies
       TypeOperators
+      UnboxedTuples
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aoc2021
