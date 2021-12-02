@@ -14,8 +14,18 @@ data Pos = Pos
   deriving (Eq, Show)
 $(makeLenses ''Pos)
 
+data SubmarineState = SubmarineState
+  { _sstDepth :: Int
+  , _sstHoriz :: Int
+  , _sstAim :: Int
+  }
+$(makeLenses ''SubmarineState)
+
 startingPos :: Pos
 startingPos = Pos 0 0
+
+startingSubmarineState :: SubmarineState
+startingSubmarineState = SubmarineState 0 0 0
 
 solveP1 :: Text -> Int
 solveP1 =
@@ -23,22 +33,40 @@ solveP1 =
   . bimap (view posDepth) (view posHoriz)
   . dup
   . flip execState startingPos
-  . p1
+  . doActions1
   . parseActions
 
 solveP2 :: Text -> Int
-solveP2 = undefined  -- TODO
+solveP2 =
+  parseActions
+  >>> doActions2
+  >>> flip execState startingSubmarineState
+  >>> dup
+  >>> bimap (view sstDepth) (view sstHoriz)
+  >>> uncurry (*)
 
-
-p1 :: Seq Action -> State Pos ()
-p1 = \case
+doActions1 :: Seq Action -> State Pos ()
+doActions1 = \case
   Empty -> pass
   a :<| as -> do
     case a of
       Forward n -> modifying posHoriz (+ n)
       Up n -> modify' (over posDepth (subtract n))
       Down n -> modify' (over posDepth (+ n))
-    p1 as
+    doActions1 as
+
+doActions2 :: Seq Action -> State SubmarineState ()
+doActions2 = \case
+  Empty -> pass
+  a :<| as -> do
+    case a of
+      Forward n -> do
+        modifying sstHoriz (+ n)
+        aim <- use sstAim
+        modifying sstDepth (+ aim * n)
+      Up n -> modifying sstAim (subtract n)
+      Down n -> modifying sstAim (+ n)
+    doActions2 as
 
 data Action
   = Forward Int

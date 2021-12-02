@@ -23,6 +23,6 @@ input1 = T.intercalate "\n"
   ["199", "200", "208", "210", "200", "207", "240", "269", "260", "263"]
 
 test2_1 = describe "2-1" $ it "sample input" $ D2.solveP1 input2 `shouldBe` 150
-test2_2 = describe "2-2" $ it "sample input" $ D2.solveP2 input2 `shouldBe` undefined
+test2_2 = describe "2-2" $ it "sample input" $ D2.solveP2 input2 `shouldBe` 900
 input2 = T.intercalate "\n"
   [ "forward 5" , "down 5" , "forward 8" , "up 3" , "down 8" , "forward 2" ]
