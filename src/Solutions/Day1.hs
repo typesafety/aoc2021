@@ -6,7 +6,6 @@ module Solutions.Day1 (
 import CustomPrelude
 
 import Data.Sequence qualified as Seq
-import Relude.Extra (dup)
 
 
 solveP1 :: Text -> Int

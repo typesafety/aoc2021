@@ -56,6 +56,7 @@ library
   build-depends:
       base >=4.7 && <5
     , containers
+    , microlens-platform
     , polysemy
     , polysemy-plugin
     , relude
@@ -93,6 +94,7 @@ executable aoc2021-exe
       aoc2021
     , base >=4.7 && <5
     , containers
+    , microlens-platform
     , polysemy
     , polysemy-plugin
     , relude
@@ -134,6 +136,7 @@ test-suite aoc2021-test
     , base >=4.7 && <5
     , containers
     , hspec
+    , microlens-platform
     , polysemy
     , polysemy-plugin
     , relude
