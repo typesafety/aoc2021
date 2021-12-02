@@ -27,6 +27,7 @@ library
       CustomPrelude
       DayPart
       Solutions.Day1
+      Solutions.Day2
   other-modules:
       Paths_aoc2021
   hs-source-dirs:
@@ -59,6 +60,7 @@ library
     , polysemy-plugin
     , relude
     , text
+    , time
     , unordered-containers
   default-language: Haskell2010
 
@@ -95,6 +97,7 @@ executable aoc2021-exe
     , polysemy-plugin
     , relude
     , text
+    , time
     , unordered-containers
   default-language: Haskell2010
 
@@ -135,5 +138,6 @@ test-suite aoc2021-test
     , polysemy-plugin
     , relude
     , text
+    , time
     , unordered-containers
   default-language: Haskell2010

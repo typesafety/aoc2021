@@ -1,4 +1,7 @@
-module Solutions.Day1 where
+module Solutions.Day1 (
+  solveP1,
+  solveP2,
+  ) where
 
 import CustomPrelude
 

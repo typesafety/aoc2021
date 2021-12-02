@@ -1,4 +1,4 @@
-# Start GHCi
+# Start GHCi using the ghciscript and pretty-simple
 repl:
     stack ghci --package pretty-simple --ghci-options="-ghci-script ghciscript"
 
