@@ -7,10 +7,11 @@ module CustomPrelude (
   Seq (Empty, (:<|), (:|>)),
 
   -- * Custom
+  bboth,
+  linesSeq,
   readInt,
   readMaybeInt,
   unsafeReadInt,
-  linesSeq,
   ) where
 
 import Relude
@@ -33,6 +34,12 @@ readMaybeInt = rightToMaybe . readInt
 
 unsafeReadInt :: Text -> Int
 unsafeReadInt = either error identity . readInt
+
+-- * Tuple-related helpers
+
+bboth :: Bifunctor f => (a -> b) -> f a a -> f b b
+bboth f = bimap f f
+{-# INLINE bboth #-}
 
 -- * Sequence-related helpers
 
