@@ -25,6 +25,7 @@ library:
   exposed-modules:
     - CustomPrelude
 
+    - DayPart
     - Solutions.Day1
 
 executables:
@@ -52,6 +53,7 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - aoc2021
+    - hspec
 
 default-extensions:
 - NoImplicitPrelude
@@ -73,6 +75,7 @@ default-extensions:
 - TypeFamilies
 - TypeOperators
 - UnboxedTuples
+- ViewPatterns
 
 ghc-options:
 # Warnings

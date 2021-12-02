@@ -25,6 +25,7 @@ source-repository head
 library
   exposed-modules:
       CustomPrelude
+      DayPart
       Solutions.Day1
   other-modules:
       Paths_aoc2021
@@ -49,6 +50,7 @@ library
       TypeFamilies
       TypeOperators
       UnboxedTuples
+      ViewPatterns
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -fplugin=Polysemy.Plugin
   build-depends:
       base >=4.7 && <5
@@ -83,6 +85,7 @@ executable aoc2021-exe
       TypeFamilies
       TypeOperators
       UnboxedTuples
+      ViewPatterns
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N -O1
   build-depends:
       aoc2021
@@ -121,11 +124,13 @@ test-suite aoc2021-test
       TypeFamilies
       TypeOperators
       UnboxedTuples
+      ViewPatterns
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aoc2021
     , base >=4.7 && <5
     , containers
+    , hspec
     , polysemy
     , polysemy-plugin
     , relude
