@@ -30,6 +30,7 @@ library:
     - DayPart
     - Solutions.Day1
     - Solutions.Day2
+    - Solutions.Day3
 
 executables:
   aoc2021-exe:

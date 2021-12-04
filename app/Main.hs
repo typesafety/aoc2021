@@ -10,6 +10,7 @@ import System.Environment (getArgs)
 import DayPart (Day (..), Part (..), parseDayPart)
 import Solutions.Day1 qualified as D1
 import Solutions.Day2 qualified as D2
+import Solutions.Day3 qualified as D3
 
 
 main :: IO ()
@@ -33,6 +34,7 @@ run (Day d) part = do
   case d of
     1 -> print $ chooseSolver D1.solveP1 D1.solveP2 part input
     2 -> print $ chooseSolver D2.solveP1 D2.solveP2 part input
+    3 -> print $ chooseSolver D3.solveP1 D3.solveP2 part input
     _ -> putTextLn "Invalid day"
   endTime <- getCPUTime
 

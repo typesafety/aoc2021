@@ -28,6 +28,7 @@ library
       DayPart
       Solutions.Day1
       Solutions.Day2
+      Solutions.Day3
   other-modules:
       Paths_aoc2021
   hs-source-dirs:
