@@ -35,6 +35,7 @@ library
       src
   default-extensions:
       NoImplicitPrelude
+      BinaryLiterals
       DataKinds
       DerivingVia
       FlexibleContexts
@@ -72,6 +73,7 @@ executable aoc2021-exe
       app
   default-extensions:
       NoImplicitPrelude
+      BinaryLiterals
       DataKinds
       DerivingVia
       FlexibleContexts
@@ -113,6 +115,7 @@ test-suite aoc2021-test
       test
   default-extensions:
       NoImplicitPrelude
+      BinaryLiterals
       DataKinds
       DerivingVia
       FlexibleContexts

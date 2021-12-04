@@ -62,6 +62,7 @@ tests:
 default-extensions:
 - NoImplicitPrelude
 
+- BinaryLiterals
 - DataKinds
 - DerivingVia
 - FlexibleContexts
