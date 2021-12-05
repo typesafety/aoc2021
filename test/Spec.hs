@@ -22,6 +22,9 @@ main = hspec $ do
   test3_1
   test3_2
 
+  test5_1
+  test5_2
+
 test1_1 = describe "1-1" $ it "sample input" $ D1.solveP1 input1 `shouldBe` 7
 test1_2 = describe "1-2" $ it "sample input" $ D1.solveP2 input1 `shouldBe` 5
 input1 = T.intercalate "\n"

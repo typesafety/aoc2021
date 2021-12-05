@@ -12,6 +12,7 @@ module CustomPrelude (
   readInt,
   readMaybeInt,
   unsafeReadInt,
+  (<.>),
   ) where
 
 import Relude
@@ -53,3 +54,9 @@ linesSeq ps
 
     (# h, t #) = span_ (/= '\n') ps
 {-# INLINE linesSeq #-}
+
+-- * Functor
+
+(<.>) :: Functor f => (b -> c) -> (a -> f b) -> a -> f c
+(<.>) f g x = f <$> g x
+{-# INLINE (<.>) #-}
