@@ -44,7 +44,7 @@ input3 = T.intercalate "\n"
   ]
 
 test5_1 = describe "5-1" $ it "sample input" $ D5.solveP1 input5 `shouldBe` 5
-test5_2 = describe "5-2" $ it "sample input" $ D5.solveP2 input5 `shouldBe` undefined
+test5_2 = describe "5-2" $ it "sample input" $ D5.solveP2 input5 `shouldBe` 12
 input5  = T.intercalate "\n"
   [ "0,9 -> 5,9", "8,0 -> 0,8", "9,4 -> 3,4", "2,2 -> 2,1", "7,0 -> 7,4" 
   , "6,4 -> 2,0", "0,9 -> 2,9", "3,4 -> 1,4", "0,0 -> 8,8", "5,5 -> 8,2"

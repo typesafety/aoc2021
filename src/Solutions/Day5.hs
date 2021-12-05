@@ -14,16 +14,15 @@ import Text.Megaparsec.Char.Lexer qualified as Lex
 solveP1 :: Text -> Int
 solveP1 =
   M.foldl' (\acc x -> if x >= 2 then acc + 1 else acc) 0
-  . foldl' (\acc l -> fromMaybe acc (addLine acc l)) M.empty
-  . fromMaybe (error "solveP1: bad parse")
-  . P.parseMaybe pInput
+  . foldl' (\acc l -> fromMaybe acc (addNonDiagonalLine acc l)) M.empty
+  . unsafeParseInput
 
 -- | Map from coordinate to number of vents.
 type VentMap = M.HashMap (Int, Int) Int
 
 -- | Add the vents described by a Line to a VentMap.
-addLine :: VentMap -> Line -> Maybe VentMap
-addLine vm = foldl' (flip addVent) vm <.> ventsInNonDiagonalLine
+addNonDiagonalLine :: VentMap -> Line -> Maybe VentMap
+addNonDiagonalLine vm = foldl' (flip addVent) vm <.> ventsInNonDiagonalLine
   where
     addVent :: (Int, Int) -> VentMap -> VentMap
     addVent v = M.insertWith (+) v 1 
@@ -48,6 +47,9 @@ data Line = Line (Int, Int) (Int, Int)
 
 type Parser = P.Parsec Void Text
 
+unsafeParseInput :: Text -> Seq Line
+unsafeParseInput = fromMaybe (error "Day5: bad parse") . P.parseMaybe pInput
+
 pInput :: Parser (Seq Line)
 pInput = fromList <$> P.many (pLine >>= \l -> void P.newline <|> P.eof >> pure l)
 
@@ -68,4 +70,19 @@ pCoord = do
 -- * Part 2
 
 solveP2 :: Text -> Int
-solveP2 = undefined
+solveP2 =
+  M.foldl' (\acc x -> if x >= 2 then acc + 1 else acc) 0
+  . foldl' addLine M.empty
+  . unsafeParseInput
+
+addLine :: VentMap -> Line -> VentMap
+addLine vm = foldl' (\acc v -> M.insertWith (+) v 1 acc) vm . ventsInLine
+
+ventsInLine :: Line -> Seq (Int, Int)
+ventsInLine l@(Line (x1, y1) (x2, y2)) = fromMaybe diagonal (ventsInNonDiagonalLine l)
+  where
+    diagonal :: Seq (Int, Int)
+    diagonal =
+      let xs = if x1 > x2 then [x1, x1 - 1 .. x2] else [x1 .. x2]
+          ys = if y1 > y2 then [y1, y1 - 1 .. y2] else [y1 .. y2]
+      in Seq.zip xs ys
