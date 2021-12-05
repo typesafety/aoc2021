@@ -8,6 +8,7 @@ import Test.Hspec (describe, hspec, it, shouldBe)
 import Solutions.Day1 qualified as D1
 import Solutions.Day2 qualified as D2
 import Solutions.Day3 qualified as D3
+import Solutions.Day5 qualified as D5
 
 
 main :: IO ()
@@ -37,4 +38,11 @@ test3_2 = describe "3-2" $ it "sample input" $ D3.solveP2 input3 `shouldBe` unde
 input3 = T.intercalate "\n"
   [ "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100"
   , "10000", "11001", "00010", "01010"
+  ]
+
+test5_1 = describe "5-1" $ it "sample input" $ D5.solveP1 input5 `shouldBe` 5
+test5_2 = describe "5-2" $ it "sample input" $ D5.solveP2 input5 `shouldBe` undefined
+input5  = T.intercalate "\n"
+  [ "0,9 -> 5,9", "8,0 -> 0,8", "9,4 -> 3,4", "2,2 -> 2,1", "7,0 -> 7,4" 
+  , "6,4 -> 2,0", "0,9 -> 2,9", "3,4 -> 1,4", "0,0 -> 8,8", "5,5 -> 8,2"
   ]

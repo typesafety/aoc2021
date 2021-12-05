@@ -29,6 +29,7 @@ library
       Solutions.Day1
       Solutions.Day2
       Solutions.Day3
+      Solutions.Day5
   other-modules:
       Paths_aoc2021
   hs-source-dirs:
@@ -58,6 +59,7 @@ library
   build-depends:
       base >=4.7 && <5
     , containers
+    , megaparsec
     , microlens-platform
     , polysemy
     , polysemy-plugin
@@ -97,6 +99,7 @@ executable aoc2021-exe
       aoc2021
     , base >=4.7 && <5
     , containers
+    , megaparsec
     , microlens-platform
     , polysemy
     , polysemy-plugin
@@ -140,6 +143,7 @@ test-suite aoc2021-test
     , base >=4.7 && <5
     , containers
     , hspec
+    , megaparsec
     , microlens-platform
     , polysemy
     , polysemy-plugin
