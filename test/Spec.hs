@@ -10,6 +10,7 @@ import Solutions.Day2 qualified as D2
 import Solutions.Day3 qualified as D3
 import Solutions.Day4 qualified as D4
 import Solutions.Day5 qualified as D5
+import Solutions.Day6 qualified as D6
 
 
 main :: IO ()
@@ -37,12 +38,16 @@ main = do
   let test4_1 = describe "4-1" $ it "sample input" $ D4.solveP1 input4 `shouldBe` 4512
   let test4_2 = describe "4-2" $ it "sample input" $ D4.solveP2 input4 `shouldBe` undefined
 
-  let input5  = T.intercalate "\n"
+  let input5 = T.intercalate "\n"
         [ "0,9 -> 5,9", "8,0 -> 0,8", "9,4 -> 3,4", "2,2 -> 2,1", "7,0 -> 7,4"
         , "6,4 -> 2,0", "0,9 -> 2,9", "3,4 -> 1,4", "0,0 -> 8,8", "5,5 -> 8,2"
         ]
   let test5_1 = describe "5-1" $ it "sample input" $ D5.solveP1 input5 `shouldBe` 5
   let test5_2 = describe "5-2" $ it "sample input" $ D5.solveP2 input5 `shouldBe` 12
+
+  let input6 = "3,4,3,1,2"
+  let test6_1 = describe "6-1" $ it "sample input" $ D6.solveP1 input6 `shouldBe` 5934
+  let test6_2 = describe "6-2" $ it "sample input" $ D6.solveP2 input6 `shouldBe` 26984457539
 
   -- Run tests
   hspec $ do
@@ -61,3 +66,6 @@ main = do
 
     test5_1
     test5_2
+
+    test6_1
+    test6_2

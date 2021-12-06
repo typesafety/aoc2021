@@ -12,6 +12,7 @@ module CustomPrelude (
   readInt,
   readMaybeInt,
   unsafeReadInt,
+  partialParseText,
   (<.>),
   ) where
 
@@ -24,7 +25,10 @@ import Data.Text.Internal.Private (span_)
 import Data.Text.Read qualified as T
 import Data.Text.Unsafe (unsafeTail)
 import Lens.Micro.Platform
+import Text.Megaparsec qualified as P
 
+
+-- * Parsing
 
 -- | Attempt to read a Text value as an integer.
 readInt :: Text -> Either Text Int
@@ -35,6 +39,9 @@ readMaybeInt = rightToMaybe . readInt
 
 unsafeReadInt :: Text -> Int
 unsafeReadInt = either error identity . readInt
+
+partialParseText :: P.Parsec Void Text b -> Text -> b
+partialParseText p = fromMaybe (error "partialParseText: failed parse") . P.parseMaybe p
 
 -- * Tuple-related helpers
 
