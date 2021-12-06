@@ -1,6 +1,7 @@
-{-# LANGUAGE ScopedTypeVariables #-}
-
-module Solutions.Day3 where
+module Solutions.Day3 (
+  solveP1,
+  solveP2,
+  ) where
 
 import CustomPrelude
 
@@ -9,7 +10,7 @@ import Data.Sequence qualified as Seq
 import Data.Text qualified as T
 import Text.Megaparsec qualified as P
 import Text.Megaparsec.Char qualified as P
-import Text.Megaparsec.Char.Lexer qualified as P
+import Text.Megaparsec.Char.Lexer qualified as Lex
 
 
 -- * Part 1
@@ -43,27 +44,16 @@ mostCommonAt idx texts =
 -- * Part 2
 
 solveP2 :: Text -> Int
-solveP2 input = o2rating parsed * co2rating parsed
+solveP2 input = filterReport O2 numberSize parsed * filterReport CO2 numberSize parsed
   where
     parsed :: Seq Int
     parsed = partialParse input
 
-    size :: Int
-    size = subtract 1 . T.length . T.takeWhile (/= '\n') $ input
-
-    o2rating :: Seq Int -> Int
-    o2rating = filterReport O2 size
-
-    co2rating :: Seq Int -> Int
-    co2rating = filterReport CO2 size
+    numberSize :: Int
+    numberSize = subtract 1 . T.length . T.takeWhile (/= '\n') $ input
 
 data Rating = O2 | CO2
   deriving (Eq, Show)
-
-ratingBias :: Rating -> Bool
-ratingBias = \case
-  O2  -> True
-  CO2 -> False
 
 filterReport :: Rating -> Int -> Seq Int -> Int
 filterReport rating idx = \case
@@ -72,28 +62,18 @@ filterReport rating idx = \case
   binNums     -> filterReport rating (idx - 1) $ Seq.filter criteria binNums
     where
       criteria :: Int -> Bool
-      criteria
-        | score == 0 = case rating of
-          O2  -> isSet
-          CO2 -> not . isSet
-        | otherwise = case rating of
-          O2 -> (== mostCommon) . isSet
-          CO2 -> not . (== mostCommon) . isSet
-
-      isSet :: Int -> Bool
-      isSet x = (x `B.testBit` idx)
-
-      bitVal :: Int -> Int
-      bitVal x = if B.testBit x idx then 1 else 0
+      criteria = case rating of
+        O2  -> commonCheck . targetIxSet
+        CO2 -> not . commonCheck . targetIxSet
+        where
+          commonCheck :: Bool -> Bool
+          commonCheck = if score == 0 then identity else (== (score > 0))
 
       score :: Int
-      score = foldl' (\acc b -> acc + comp b) 0 (fmap isSet binNums)
+      score = foldl' (\acc b -> acc + bool (-1) 1 b) 0 (fmap targetIxSet binNums)
 
-      comp :: Bool -> Int
-      comp x = if x then 1 else (-1)
-
-      -- mostCommon :: Int
-      mostCommon = score > 0 -- if score > 0 then 1 else 0
+      targetIxSet :: Int -> Bool
+      targetIxSet x = (x `B.testBit` idx)
 
 type Parser = P.Parsec Void Text
 
@@ -102,7 +82,7 @@ partialParse = fromMaybe (error "Day3: failed parse") .  P.parseMaybe pBits
   where
     pBit :: Parser Int
     pBit = do
-      bin <- P.binary
+      bin <- Lex.binary
       void (P.newline) <|> P.eof
       pure bin
 
