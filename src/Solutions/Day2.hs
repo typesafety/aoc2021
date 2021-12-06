@@ -5,6 +5,9 @@ module Solutions.Day2 where
 import CustomPrelude hiding (Down)
 
 import Data.Text qualified as T
+import Text.Megaparsec qualified as MP
+import Text.Megaparsec.Char (space, string)
+import Text.Megaparsec.Char.Lexer qualified as MP
 
 
 data Pos = Pos
@@ -89,10 +92,12 @@ parseAction txt = do
   n <- readMaybeInt amt
   pure $ f n
 
-  where
-    list2pair :: [Text] -> Maybe (Text, Text)
-    list2pair = \case
-      [x, y] -> Just (x, y)
-      _      -> Nothing
+-- * Parsing
 
+type Parser = MP.Parsec Void Text
 
+pAction :: Parser Action
+pAction =
+  MP.try (string "forward" *> space $> Forward <*> MP.decimal)
+  <|> MP.try (string "down" *> space $> Down <*> MP.decimal)
+  <|> MP.try (string "up" *> space $> Up <*> MP.decimal)
