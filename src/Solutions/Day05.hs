@@ -1,4 +1,4 @@
-module Solutions.Day5 (
+module Solutions.Day05 (
   solveP1,
   solveP2,
   ) where
@@ -28,7 +28,7 @@ addNonDiagonalLine :: VentMap -> Line -> Maybe VentMap
 addNonDiagonalLine vm = foldl' (flip addVent) vm <.> ventsInNonDiagonalLine
   where
     addVent :: (Int, Int) -> VentMap -> VentMap
-    addVent v = M.insertWith (+) v 1 
+    addVent v = M.insertWith (+) v 1
 
 -- | Only considers horizontal and vertical lines.
 ventsInNonDiagonalLine :: Line -> Maybe (Seq (Int, Int))
@@ -41,7 +41,7 @@ ventsInNonDiagonalLine (Line (x1, y1) (x2, y2))
   | y1 == y2 = Just $
     let xs = [min x1 x2 .. max x1 x2]
     in Seq.zip xs (Seq.replicate (length xs) y1)
-  -- Diagonal line 
+  -- Diagonal line
   | otherwise = Nothing
 
 
@@ -66,10 +66,10 @@ pLine = do
 pCoord :: Parser (Int, Int)
 pCoord = do
   x <- Lex.decimal
-  _ <- P.char ',' 
+  _ <- P.char ','
   y <- Lex.decimal
   pure (x, y)
- 
+
 -- * Part 2
 
 solveP2 :: Text -> Int

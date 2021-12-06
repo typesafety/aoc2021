@@ -5,12 +5,12 @@ import CustomPrelude
 import Data.Text qualified as T
 import Test.Hspec (describe, hspec, it, shouldBe)
 
-import Solutions.Day1 qualified as D1
-import Solutions.Day2 qualified as D2
-import Solutions.Day3 qualified as D3
-import Solutions.Day4 qualified as D4
-import Solutions.Day5 qualified as D5
-import Solutions.Day6 qualified as D6
+import Solutions.Day01 qualified as D1
+import Solutions.Day02 qualified as D2
+import Solutions.Day03 qualified as D3
+import Solutions.Day04 qualified as D4
+import Solutions.Day05 qualified as D5
+import Solutions.Day06 qualified as D6
 
 
 main :: IO ()

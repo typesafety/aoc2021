@@ -1,4 +1,4 @@
-module Solutions.Day4
+module Solutions.Day04
   where
 
 import CustomPrelude

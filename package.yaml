@@ -30,12 +30,12 @@ library:
     - CustomPrelude
 
     - DayPart
-    - Solutions.Day1
-    - Solutions.Day2
-    - Solutions.Day3
-    - Solutions.Day4
-    - Solutions.Day5
-    - Solutions.Day6
+    - Solutions.Day01
+    - Solutions.Day02
+    - Solutions.Day03
+    - Solutions.Day04
+    - Solutions.Day05
+    - Solutions.Day06
 
 executables:
   aoc2021-exe:
