@@ -2,7 +2,6 @@ module CustomPrelude (
   -- * Re-exported
   module Relude,
   module Relude.Extra.Tuple,
-  module Lens.Micro.Platform,
 
   Seq (Empty, (:<|), (:|>)),
 
@@ -24,7 +23,6 @@ import Data.Text qualified as T
 import Data.Text.Internal.Private (span_)
 import Data.Text.Read qualified as T
 import Data.Text.Unsafe (unsafeTail)
-import Lens.Micro.Platform
 import Text.Megaparsec qualified as P
 
 

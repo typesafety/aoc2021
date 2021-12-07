@@ -11,6 +11,7 @@ import Solutions.Day03 qualified as D3
 import Solutions.Day04 qualified as D4
 import Solutions.Day05 qualified as D5
 import Solutions.Day06 qualified as D6
+import Solutions.Day07 qualified as D7
 
 
 main :: IO ()
@@ -49,6 +50,10 @@ main = do
   let test6_1 = describe "6-1" $ it "sample input" $ D6.solveP1 input6 `shouldBe` 5934
   let test6_2 = describe "6-2" $ it "sample input" $ D6.solveP2 input6 `shouldBe` 26984457539
 
+  let input7 = "16,1,2,0,4,2,7,1,2,14"
+  let test7_1 = describe "7-1" $ it "sample input" $ D7.solveP1 input7 `shouldBe` 37
+  let test7_2 = describe "7-2" $ it "sample input" $ D7.solveP2 input7 `shouldBe` undefined
+
   -- Run tests
   hspec $ do
 
@@ -69,3 +74,6 @@ main = do
 
     test6_1
     test6_2
+
+    test7_1
+    test7_2

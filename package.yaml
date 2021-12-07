@@ -36,6 +36,7 @@ library:
     - Solutions.Day04
     - Solutions.Day05
     - Solutions.Day06
+    - Solutions.Day07
 
 executables:
   aoc2021-exe:

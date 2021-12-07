@@ -3,6 +3,7 @@
 module Solutions.Day02 where
 
 import CustomPrelude hiding (Down)
+import Lens.Micro.Platform
 
 import Data.Text qualified as T
 import Text.Megaparsec qualified as MP
