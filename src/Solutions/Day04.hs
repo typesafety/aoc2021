@@ -9,6 +9,7 @@ import Data.Vector qualified as V
 import Text.Megaparsec qualified as P
 import Text.Megaparsec.Char qualified as P
 import Text.Megaparsec.Char.Lexer qualified as Lex
+import Text.Megaparsec.Debug
 
 
 -- * Part 1
@@ -20,36 +21,34 @@ type Board = V.Vector (VU.Vector Int)
 
 type Parser = P.Parsec Void Text
 
-unsafeParseInput :: Text -> (Seq Int, Seq Board)
-unsafeParseInput = fromMaybe (error "Day4: bad parse") . P.parseMaybe pInput
+partialParseInput :: Text -> (Seq Int, Seq Board)
+partialParseInput = fromMaybe (error "Day4: bad parse") . P.parseMaybe pInput
 
 pInput :: Parser (Seq Int, Seq Board)
 pInput = do
   ns <- pNumbers
-  void . P.many $ P.newline
+  void . P.some $ P.newline
   bs <- pBoards
-  P.many $ void P.newline <|> P.eof
   pure (ns, bs)
 
 pNumbers :: Parser (Seq Int)
-pNumbers = do
-  ns <- P.sepBy Lex.decimal (P.char ',')
-  pure $ fromList ns
+pNumbers = fromList <$> P.sepBy Lex.decimal (P.char ',')
 
 pBoards :: Parser (Seq Board)
-pBoards = do
-  bs <- P.sepBy pBoard (P.newline)
+pBoards = dbg "pBoards" $ do
+  bs <- P.sepBy pBoard (P.some P.newline)
   pure $ fromList bs
 
 pBoard :: Parser Board
-pBoard = do
-  b <- P.sepBy pRow (P.newline)
+pBoard = dbg "pBoard" $ do
+  b <- P.sepBy1 (P.try pRow) P.newline
   pure $ fromList b
 
 pRow :: Parser (VU.Vector Int)
-pRow = do
-  nums <- P.sepBy Lex.decimal P.space
-  pure $ fromList nums
+pRow = dbg "pRow" $ do
+  void $ P.many P.spaceChar
+  r <- P.sepBy1 Lex.decimal (P.some $ P.char ' ')
+  pure $ fromList r
 
 -- * Part 2
 
