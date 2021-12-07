@@ -2,7 +2,6 @@ module Solutions.Day07 where
 
 import CustomPrelude
 
-import Control.Arrow ((***))
 import Data.Sequence qualified as Seq
 import Data.Text qualified as T
 
@@ -10,16 +9,15 @@ import Data.Text qualified as T
 -- * Part 1
 
 solveP1 :: Text -> Int
-solveP1 input =
-  let sorted = Seq.sort . unsafeParseInput $ input
-  in uncurry max
-      . (***) (fuelCost sorted) (fuelCost sorted)
-      . (&&&) (`div` 2) ((`div` 2) . subtract 1)
-      . Seq.length
-      $ sorted
-  where
-    fuelCost :: Seq Int -> Int -> Int
-    fuelCost xs ix = sum . fmap (abs . subtract (Seq.index xs ix)) $ xs
+solveP1 =
+  T.splitOn ","
+  >>> fromList
+  >>> fmap unsafeReadInt
+  >>> Seq.sort
+  >>> (&&&) identity (identity &&& (Seq.length >>> flip div 2))
+  >>> second (uncurry Seq.index >>> subtract >>> (>>> abs))
+  >>> uncurry (<&>)
+  >>> sum
 
 unsafeParseInput :: Text -> Seq Int
 unsafeParseInput = fmap unsafeReadInt . fromList . T.splitOn ","
