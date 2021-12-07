@@ -52,7 +52,7 @@ main = do
 
   let input7 = "16,1,2,0,4,2,7,1,2,14"
   let test7_1 = describe "7-1" $ it "sample input" $ D7.solveP1 input7 `shouldBe` 37
-  let test7_2 = describe "7-2" $ it "sample input" $ D7.solveP2 input7 `shouldBe` undefined
+  let test7_2 = describe "7-2" $ it "sample input" $ D7.solveP2 input7 `shouldBe` 168
 
   -- Run tests
   hspec $ do

@@ -3,7 +3,9 @@ module CustomPrelude (
   module Relude,
   module Relude.Extra.Tuple,
 
-  Seq (Empty, (:<|), (:|>)),
+  Seq.Seq (Empty, (:<|), (:|>)),
+  Seq.ViewL (..),
+  Seq.ViewR (..),
 
   -- * Custom
   bboth,
