@@ -61,6 +61,7 @@ main = do
         , "9856789892"
         , "8767896789"
         , "9899965678"
+        , ""  -- FIXME: Look up how to write parsers
         ]
   let test9_1 = describe "9-1" $ it "sample input" $ D9.solveP1 input9 `shouldBe` 15
   let test9_2 = describe "9-2" $ it "sample input" $ D9.solveP2 input9 `shouldBe` undefined

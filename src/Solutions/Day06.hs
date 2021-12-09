@@ -15,7 +15,7 @@ import Text.Megaparsec.Char.Lexer qualified as Lex
 -- * Part 1
 
 solveP1 :: Text -> Int
-solveP1 = Seq.length . applyN 80 step . partialParseText pInput
+solveP1 = Seq.length . applyN 80 step . traceShowId . partialParseText pInput
 
 applyN :: Int -> (a -> a) -> a -> a
 applyN n f x
