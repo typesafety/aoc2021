@@ -12,6 +12,7 @@ import Solutions.Day04 qualified as D4
 import Solutions.Day05 qualified as D5
 import Solutions.Day06 qualified as D6
 import Solutions.Day07 qualified as D7
+import Solutions.Day09 qualified as D9
 
 
 main :: IO ()
@@ -54,6 +55,16 @@ main = do
   let test7_1 = describe "7-1" $ it "sample input" $ D7.solveP1 input7 `shouldBe` 37
   let test7_2 = describe "7-2" $ it "sample input" $ D7.solveP2 input7 `shouldBe` 168
 
+  let input9 = T.intercalate "\n"
+        [ "2199943210"
+        , "3987894921"
+        , "9856789892"
+        , "8767896789"
+        , "9899965678"
+        ]
+  let test9_1 = describe "9-1" $ it "sample input" $ D9.solveP1 input9 `shouldBe` 15
+  let test9_2 = describe "9-2" $ it "sample input" $ D9.solveP2 input9 `shouldBe` undefined
+
   -- Run tests
   hspec $ do
 
@@ -77,3 +88,6 @@ main = do
 
     test7_1
     test7_2
+
+    test9_1
+    test9_2
