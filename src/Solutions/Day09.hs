@@ -3,6 +3,8 @@ module Solutions.Day09 where
 import CustomPrelude
 
 import Data.Char (digitToInt)
+import Data.IntSet qualified as IS
+import Data.Sequence qualified as Seq
 import Data.Vector qualified as V
 import Data.Vector.Unboxed qualified as UV
 import Text.Megaparsec qualified as P
@@ -38,7 +40,7 @@ riskSum hg = V.ifoldl' accRisk 0 hg
 
             -- Get the height at the given coordinate, defaulting to 9 if out of bounds.
             hAtCoord :: (Int, Int) -> HeightGrid -> Int
-            hAtCoord (col, row) = fromMaybe 10 . ((UV.!? col) <=< (V.!? row))
+            hAtCoord (col, row) = fromMaybe 9 . ((UV.!? col) <=< (V.!? row))
 
 -- | Return the indices and values in a row whose neighbors are higher.
 rowLows :: HeightRow -> UV.Vector (Int, Int)
@@ -55,7 +57,7 @@ rowLows hr = UV.imapMaybe ixValIfLow hr
 
         -- Get height at the given index, defaulting to 9 if out of bounds.
         hAt :: HeightRow -> Int -> Int
-        hAt r = fromMaybe 10 . (r UV.!?)
+        hAt r = fromMaybe 9 . (r UV.!?)
 
 type HeightGrid = V.Vector HeightRow
 type HeightRow = UV.Vector Int
@@ -74,8 +76,15 @@ pHeightRow = do
 -- * Part 2
 
 solveP2 :: Text -> Int
-solveP2 = undefined .
-  partialParseText heightMapP
+solveP2 =
+  product
+  . Seq.take 3
+  . Seq.unstableSortBy (flip compare)
+  . UV.foldl' (\xs n -> n :<| xs) []
+  . uncurry UV.map
+  . first (flip basinSize)
+  . (&&&) identity lowPoints
+  . partialParseText heightMapP
 
 -- | Just use a single vector instead, bundled with the length of each row.
 data HeightMap = HeightMap
@@ -84,12 +93,74 @@ data HeightMap = HeightMap
   }
   deriving (Eq, Show)
 
--- lowPoints :: HeightMap -> Seq (Int, Int)
--- lowPoints hg = undefined
+data Dir = N | S | W | E
+  deriving (Eq, Show)
 
--- | Get the value at the given coordinate.
-at :: (Int, Int) -> HeightMap -> Maybe Int
-at (x, y) hm =  hmVents hm UV.!? (hmRowLength hm * y + x)
+-- | Extract indices of low points in the map.
+lowPoints :: HeightMap -> UV.Vector Int
+lowPoints hm = UV.imapMaybe ixOfLow (hmVents hm)
+  where
+    -- If the value at the index is a low point, return the index, otherwise Nothing.
+    ixOfLow :: Int -> Int -> Maybe Int
+    ixOfLow ix val =
+      if all (val <) . fmap @Seq (flip (valAtDir ix) hm) $ [N, S, W, E]
+        then Just ix
+        else Nothing
+
+basinSize :: Int -> HeightMap -> Int
+basinSize startIx hm = evalState (go (hm !?! startIx) startIx) IS.empty
+  where
+    go :: Int -> Int -> State IntSet Int
+    go curr ix = modify' (IS.insert ix) >> (1 +) . sum <$> mapM @Seq follow [N, S, W, E]
+      where
+        follow :: Dir -> State IntSet Int
+        follow dir = case toNeighbor hm dir ix of
+          Left _ -> pure 0
+          Right neighborIx -> do
+            let neighborVal = hm !?! neighborIx
+            visited <- get
+            if and @Seq
+                [ neighborVal > curr
+                , neighborVal /= 9
+                , neighborIx `IS.notMember` visited
+                ]
+              then go neighborVal neighborIx
+              else pure 0
+
+-- | Get the value at the given index, defaulting to 9 if out of bounds.
+(!?!) :: HeightMap -> Int -> Int
+(!?!) hm ix = fromMaybe 9 $ hmVents hm UV.!? ix
+
+-- | Get the value adjacent to a given index.
+valAtDir :: Int -> Dir -> HeightMap -> Int
+valAtDir ix dir hm =
+  case (toNeighbor hm dir) ix of
+    Left _ -> 9
+    Right n -> fromMaybe 9 $ hmVents hm UV.!? n
+
+-- | Get the index of the neighbor of an index, or Nothing if out of bounds.
+toNeighbor :: HeightMap -> Dir -> Int -> Either Text Int
+toNeighbor hm dir = oobChecked
+  where
+    oobChecked :: Int -> Either Text Int
+    oobChecked n
+      | teleporting = Left "teleportation"
+      | otherwise = if isJust (hmVents hm UV.!? f n)
+                      then Right (f n)
+                      else Left "oob"
+      where
+        teleporting =
+          div n (hmRowLength hm) /= div (f n) (hmRowLength hm)
+          && elem @Seq dir [W, E]
+
+    f :: Int -> Int
+    f = case dir of
+      N -> subtract (hmRowLength hm)
+      S -> (+ hmRowLength hm)
+      W -> subtract 1
+      E -> (+ 1)
+
+-- Parsing
 
 heightMapP :: Parser HeightMap
 heightMapP = do
@@ -102,4 +173,3 @@ allDigitsP = UV.fromList <$> P.someTill multiRowDigitP P.eof
 
 multiRowDigitP :: Parser Int
 multiRowDigitP = digitToInt <$> Lex.lexeme (P.skipMany P.newline) P.digitChar
-

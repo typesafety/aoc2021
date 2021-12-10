@@ -64,7 +64,7 @@ main = do
         , ""  -- FIXME: Look up how to write parsers
         ]
   let test9_1 = describe "9-1" $ it "sample input" $ D9.solveP1 input9 `shouldBe` 15
-  let test9_2 = describe "9-2" $ it "sample input" $ D9.solveP2 input9 `shouldBe` undefined
+  let test9_2 = describe "9-2" $ it "sample input" $ D9.solveP2 input9 `shouldBe` 1134
 
   -- Run tests
   hspec $ do
