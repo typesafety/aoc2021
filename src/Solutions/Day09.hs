@@ -7,12 +7,13 @@ import Data.Vector qualified as V
 import Data.Vector.Unboxed qualified as UV
 import Text.Megaparsec qualified as P
 import Text.Megaparsec.Char qualified as P
+import Text.Megaparsec.Char.Lexer qualified as Lex
 
 
 -- * Part 1
 
 solveP1 :: Text -> Int
-solveP1 = riskSum . partialParseText pHeightMap
+solveP1 = riskSum . partialParseText pHeightGrid
 
 -- | Return the values of low points.
 riskSum :: HeightGrid -> Int
@@ -60,17 +61,45 @@ type HeightGrid = V.Vector HeightRow
 type HeightRow = UV.Vector Int
 type Parser = P.Parsec Void Text
 
-pHeightMap :: Parser HeightGrid
-pHeightMap = do
-  ps <- P.some pRow
+pHeightGrid :: Parser HeightGrid
+pHeightGrid = do
+  ps <- P.some pHeightRow
   pure $ V.fromList ps
 
-pRow :: Parser (UV.Vector Int)
-pRow = do
+pHeightRow :: Parser (UV.Vector Int)
+pHeightRow = do
   d <- P.someTill P.digitChar P.newline
   pure . UV.fromList . map digitToInt $ d
 
 -- * Part 2
 
 solveP2 :: Text -> Int
-solveP2 = undefined
+solveP2 = undefined .
+  partialParseText heightMapP
+
+-- | Just use a single vector instead, bundled with the length of each row.
+data HeightMap = HeightMap
+  { hmRowLength :: !Int
+  , hmVents :: !(UV.Vector Int)
+  }
+  deriving (Eq, Show)
+
+-- lowPoints :: HeightMap -> Seq (Int, Int)
+-- lowPoints hg = undefined
+
+-- | Get the value at the given coordinate.
+at :: (Int, Int) -> HeightMap -> Maybe Int
+at (x, y) hm =  hmVents hm UV.!? (hmRowLength hm * y + x)
+
+heightMapP :: Parser HeightMap
+heightMapP = do
+  rowLength <- length <$> P.lookAhead (P.someTill P.digitChar P.newline)
+  digits <- allDigitsP
+  pure (HeightMap rowLength digits)
+
+allDigitsP :: Parser (UV.Vector Int)
+allDigitsP = UV.fromList <$> P.someTill multiRowDigitP P.eof
+
+multiRowDigitP :: Parser Int
+multiRowDigitP = digitToInt <$> Lex.lexeme (P.skipMany P.newline) P.digitChar
+
