@@ -13,6 +13,7 @@ import Solutions.Day05 qualified as D5
 import Solutions.Day06 qualified as D6
 import Solutions.Day07 qualified as D7
 import Solutions.Day09 qualified as D9
+import Solutions.Day10 qualified as D10
 
 
 main :: IO ()
@@ -66,6 +67,21 @@ main = do
   let test9_1 = describe "9-1" $ it "sample input" $ D9.solveP1 input9 `shouldBe` 15
   let test9_2 = describe "9-2" $ it "sample input" $ D9.solveP2 input9 `shouldBe` 1134
 
+  let input10 = T.intercalate "\n"
+        [ " [({(<(())[]>[[{[]{<()<>>"
+        , " [(()[<>])]({[<{<<[]>>("
+        , " {([(<{}[<>[]}>{[]{[(<()>"
+        , " (((({<>}<{<{<>}{[]{[]{}"
+        , " [[<[([]))<([[{}[[()]]]"
+        , " [{[{({}]{}}([{[{{{}}([]"
+        , " {<[[]]>}<{[{[{[]{()[[[]"
+        , " [<(<(<(<{}))><([]([]()"
+        , " <{([([[(<>()){}]>(<<{{"
+        , " <{([{{}}[<[[[<>{}]]]>[]]"
+        ]
+  let test10_1 = describe "10-1" $ it "sample input" $ D10.solveP1 input10 `shouldBe` 26397
+  let test10_2 = describe "10-2" $ it "sample input" $ D10.solveP2 input10 `shouldBe` undefined
+
   -- Run tests
   hspec $ do
 
@@ -92,3 +108,6 @@ main = do
 
     test9_1
     test9_2
+
+    test10_1
+    test10_2

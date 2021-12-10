@@ -16,6 +16,7 @@ dependencies:
 - containers
 - megaparsec
 - microlens-platform
+- mono-traversable
 - polysemy
 - polysemy-plugin
 - relude
@@ -38,6 +39,7 @@ library:
     - Solutions.Day06
     - Solutions.Day07
     - Solutions.Day09
+    - Solutions.Day10
 
 executables:
   aoc2021-exe:

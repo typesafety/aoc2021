@@ -34,6 +34,7 @@ library
       Solutions.Day06
       Solutions.Day07
       Solutions.Day09
+      Solutions.Day10
   other-modules:
       Paths_aoc2021
   hs-source-dirs:
@@ -65,6 +66,7 @@ library
     , containers
     , megaparsec
     , microlens-platform
+    , mono-traversable
     , polysemy
     , polysemy-plugin
     , relude
@@ -106,6 +108,7 @@ executable aoc2021-exe
     , containers
     , megaparsec
     , microlens-platform
+    , mono-traversable
     , polysemy
     , polysemy-plugin
     , relude
@@ -151,6 +154,7 @@ test-suite aoc2021-test
     , hspec
     , megaparsec
     , microlens-platform
+    , mono-traversable
     , polysemy
     , polysemy-plugin
     , relude
