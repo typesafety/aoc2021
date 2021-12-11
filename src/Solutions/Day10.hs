@@ -43,10 +43,7 @@ closerOf = \case
   x   -> error $ "closerOf: unexpected char: " <> [x]
 
 parseInput :: Text -> Seq (Seq Char)
-parseInput = fmap textToSeq . fromList . T.lines
-  where
-    textToSeq :: Text -> Seq Char
-    textToSeq = T.foldl' (\acc x -> acc :|> x) Empty
+parseInput = fmap (T.foldl' (:|>) Empty) . fromList . T.lines
 
 score1 :: Char -> Int
 score1 = \case
@@ -66,7 +63,7 @@ solveP2 =
   . parseInput
 
 scoreCompletion :: [Char] -> Int
-scoreCompletion = foldl' (\acc c -> acc * 5 + score2 c) 0
+scoreCompletion = foldl' (curry (uncurry (+) . bimap (* 5) score2)) 0
 
 score2 :: Char -> Int
 score2 = \case
