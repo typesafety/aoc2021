@@ -14,6 +14,7 @@ import Solutions.Day06 qualified as D6
 import Solutions.Day07 qualified as D7
 import Solutions.Day09 qualified as D9
 import Solutions.Day10 qualified as D10
+import Solutions.Day11 qualified as D11
 
 
 main :: IO ()
@@ -126,3 +127,6 @@ main = do
 
     test10_1
     test10_2
+
+    test11_1
+    test11_2
