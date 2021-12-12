@@ -7,13 +7,19 @@ module CustomPrelude (
   Seq.ViewL (..),
   Seq.ViewR (..),
 
-  -- * Custom
-  bboth,
-  linesSeq,
+  -- * Parsing
   readInt,
   readMaybeInt,
   unsafeReadInt,
   partialParseText,
+
+  -- * Tuple
+  bboth,
+
+  -- * Sequence
+  linesSeq,
+
+  -- * Functor
   (<.>),
   ) where
 

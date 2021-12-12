@@ -80,7 +80,22 @@ main = do
         , " <{([{{}}[<[[[<>{}]]]>[]]"
         ]
   let test10_1 = describe "10-1" $ it "sample input" $ D10.solveP1 input10 `shouldBe` 26397
-  let test10_2 = describe "10-2" $ it "sample input" $ D10.solveP2 input10 `shouldBe` undefined
+  let test10_2 = describe "10-2" $ it "sample input" $ D10.solveP2 input10 `shouldBe` 288957
+
+  let input11 = T.intercalate "\n"
+        [ "5483143223"
+        , "2745854711"
+        , "5264556173"
+        , "6141336146"
+        , "6357385478"
+        , "4167524645"
+        , "2176841721"
+        , "6882881134"
+        , "4846848554"
+        , "5283751526"
+        ]
+  let test11_1 = describe "11-1" $ it "sample input" $ D11.solveP1 input11 `shouldBe` 1656
+  let test11_2 = describe "11-2" $ it "sample input" $ D11.solveP2 input11 `shouldBe` undefined
 
   -- Run tests
   hspec $ do

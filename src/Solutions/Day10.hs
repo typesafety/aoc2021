@@ -1,4 +1,7 @@
-module Solutions.Day10 where
+module Solutions.Day10 (
+  solveP1,
+  solveP2,
+  ) where
 
 import CustomPrelude hiding (catMaybes)
 
@@ -19,11 +22,11 @@ solveP1 =
   . parseInput
 
 findCorrupted :: Seq Char -> State [Char] (Maybe Char)
-findCorrupted = \case 
+findCorrupted = \case
   Empty    -> pure Nothing
   c :<| cs -> get >>= \case
     -- TODO: remove repetition
-    [] 
+    []
       | c `S.member` openers -> modify' (c :) >> findCorrupted cs
       | otherwise -> pure (Just c)
     lastOpener : rest
@@ -32,7 +35,7 @@ findCorrupted = \case
       | otherwise -> pure (Just c)
   where
     openers :: Set Char
-    openers = ['(', '[', '{', '<'] 
+    openers = ['(', '[', '{', '<']
 
 closerOf :: Char -> Char
 closerOf = \case
