@@ -1,5 +1,7 @@
-module Solutions.Day04
-  where
+module Solutions.Day04 (
+  solveP1,
+  solveP2,
+) where
 
 import CustomPrelude
 
@@ -14,12 +16,10 @@ import Text.Megaparsec.Char.Lexer qualified as Lex
 
 -- * Part 1
 
--- TODO: cleanup
-
 solveP1 :: Text -> Int
 solveP1 =
   uncurry score
-  . uncurry (\nums bls -> evalState (run bls) nums)
+  . uncurry (flip run)
   . second (fmap gridToSets)
   . partialParseText bingoP
 
@@ -32,11 +32,11 @@ score :: Int -> Board -> Int
 score winningNum = (* winningNum) . IS.foldl' (+) 0 . foldl' IS.union IS.empty
 
 -- | Simulate the bingo game.
-run :: Seq Board -> State (Seq Int) (Int, Board)
-run boards = get >>= \case
+run :: Seq Board -> Seq Int -> (Int, Board)
+run boards = \case
   n :<| ns ->
     let newBoards = fmap (draw n) boards
-    in maybe (put ns >> run newBoards) pure ((n, ) <$> find (any IS.null) newBoards)
+    in fromMaybe (run newBoards ns) ((n, ) <$> find (any IS.null) newBoards)
   Empty -> error "no bingo"
 
 -- | Update a board with a number drawing.
