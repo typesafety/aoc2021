@@ -40,7 +40,7 @@ main = do
 
   input4 <- readFileText "test/day4sample.txt"
   let test4_1 = describe "4-1" $ it "sample input" $ D4.solveP1 input4 `shouldBe` 4512
-  let test4_2 = describe "4-2" $ it "sample input" $ D4.solveP2 input4 `shouldBe` undefined
+  let test4_2 = describe "4-2" $ it "sample input" $ D4.solveP2 input4 `shouldBe` 1924
 
   let input5 = T.intercalate "\n"
         [ "0,9 -> 5,9", "8,0 -> 0,8", "9,4 -> 3,4", "2,2 -> 2,1", "7,0 -> 7,4"
@@ -96,7 +96,7 @@ main = do
         , "5283751526"
         ]
   let test11_1 = describe "11-1" $ it "sample input" $ D11.solveP1 input11 `shouldBe` 1656
-  let test11_2 = describe "11-2" $ it "sample input" $ D11.solveP2 input11 `shouldBe` undefined
+  let test11_2 = describe "11-2" $ it "sample input" $ D11.solveP2 input11 `shouldBe` 195
 
   -- Run tests
   hspec $ do

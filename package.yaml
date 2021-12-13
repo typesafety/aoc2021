@@ -86,6 +86,7 @@ default-extensions:
 - PolyKinds
 - RankNTypes
 - ScopedTypeVariables
+- TupleSections
 - TypeApplications
 - TypeFamilies
 - TypeOperators

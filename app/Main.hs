@@ -11,6 +11,7 @@ import DayPart (Day (..), Part (..), parseDayPart)
 import Solutions.Day01 qualified as D1
 import Solutions.Day02 qualified as D2
 import Solutions.Day03 qualified as D3
+import Solutions.Day04 qualified as D4
 import Solutions.Day05 qualified as D5
 import Solutions.Day06 qualified as D6
 import Solutions.Day07 qualified as D7
@@ -41,6 +42,7 @@ run (Day d) part = do
     1 -> print $ chooseSolver D1.solveP1 D1.solveP2 part input
     2 -> print $ chooseSolver D2.solveP1 D2.solveP2 part input
     3 -> print $ chooseSolver D3.solveP1 D3.solveP2 part input
+    4 -> print $ chooseSolver D4.solveP1 D4.solveP2 part input
     5 -> print $ chooseSolver D5.solveP1 D5.solveP2 part input
     6 -> print $ chooseSolver D6.solveP1 D6.solveP2 part input
     7 -> print $ chooseSolver D7.solveP1 D7.solveP2 part input
