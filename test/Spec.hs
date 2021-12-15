@@ -109,7 +109,7 @@ main = do
         , "b-end"
         ]
   let test12_1 = describe "12-1" $ it "sample input" $ D12.solveP1 input12 `shouldBe` 10
-  let test12_2 = describe "12-2" $ it "sample input" $ D12.solveP2 input12 `shouldBe` undefined
+  let test12_2 = describe "12-2" $ it "sample input" $ D12.solveP2 input12 `shouldBe` 36
 
   -- Run tests
   hspec $ do

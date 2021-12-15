@@ -41,12 +41,8 @@ graphFromPaths = foldl' (flip build) mempty
   where
     build :: (Text, Text) -> Graph -> Graph
     build (t1, t2) =
-        insertAdjust (HS.insert t1 ) t2 [t1]
-        >>> insertAdjust (HS.insert t2) t1 [t2]
-      where
-        insertAdjust ::
-          (Eq k, Hashable k) => (v -> v) -> k -> v -> HashMap k v -> HashMap k v
-        insertAdjust f k v hm = HM.insertWith (\_ old -> f old) k v hm
+        HM.alter (maybe (Just [t2]) (Just . HS.insert t2)) t1
+        >>> HM.alter (maybe (Just [t1]) (Just . HS.insert t1)) t2
 
 type Parser = P.Parsec Void Text
 
@@ -63,4 +59,34 @@ pathsP = fromList <$> P.sepEndBy1 pathP P.newline
 -- * Part 2
 
 solveP2 :: Text -> Int
-solveP2 = undefined
+solveP2 =
+  runReader (count2 "start")
+  . (, [])
+  . graphFromPaths
+  . partialParseText pathsP
+
+count2 :: Text -> Reader (Graph, HashSet Text) Int
+count2 "end" = pure 1
+count2 current = do
+  (adjacent, visited) <- asks (first (HM.findWithDefault [] current))
+  let avail = HS.filter (not . flip HS.member visited) adjacent
+  let closed = adjacent `HS.difference` avail
+  x <- recurse (updateVisited current) count2 avail
+  y <- recurse (updateVisited current) countPostRevisit (closed `HS.difference` ["start"])
+  pure $ x + y
+  where
+    countPostRevisit :: Text -> Reader (Graph, HashSet Text) Int
+    countPostRevisit "end" = pure 1
+    countPostRevisit t = do
+      (adjacent, visited) <- asks (first (HM.findWithDefault [] t))
+      let avail = HS.filter (not . flip HS.member visited) adjacent
+      recurse (updateVisited t) countPostRevisit avail
+
+    recurse updater counter nodesToVisit = do
+      HS.foldl'
+        (\acc node -> (+) <$> acc <*> local updater (counter node))
+        (pure 0)
+        nodesToVisit
+
+    updateVisited :: Text -> (Graph, HashSet Text) -> (Graph, HashSet Text)
+    updateVisited t = second (bool identity (HS.insert t) (isLower . T.head $ t))
