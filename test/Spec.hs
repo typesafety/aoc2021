@@ -16,6 +16,7 @@ import Solutions.Day09 qualified as D9
 import Solutions.Day10 qualified as D10
 import Solutions.Day11 qualified as D11
 import Solutions.Day12 qualified as D12
+import Solutions.Day18 qualified as D18
 
 
 main :: IO ()
@@ -111,6 +112,21 @@ main = do
   let test12_1 = describe "12-1" $ it "sample input" $ D12.solveP1 input12 `shouldBe` 10
   let test12_2 = describe "12-2" $ it "sample input" $ D12.solveP2 input12 `shouldBe` 36
 
+  let input18 = T.intercalate "\n"
+        [ "[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]"
+        , "[[[5,[2,8]],4],[5,[[9,9],0]]]"
+        , "[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]"
+        , "[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]"
+        , "[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]"
+        , "[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]"
+        , "[[[[5,4],[7,7]],8],[[8,3],8]]"
+        , "[[9,3],[[9,9],[6,[4,9]]]]"
+        , "[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]"
+        , "[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]"
+        ]
+  let test18_1 = describe "18-1" $ it "sample input" $ D18.solveP1 input18 `shouldBe` 4140
+  let test18_2 = describe "18-2" $ it "sample input" $ D18.solveP2 input18 `shouldBe` undefined
+
   -- Run tests
   hspec $ do
 
@@ -146,3 +162,6 @@ main = do
 
     test12_1
     test12_2
+
+    test18_1
+    test18_2

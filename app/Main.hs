@@ -19,6 +19,7 @@ import Solutions.Day09 qualified as D9
 import Solutions.Day10 qualified as D10
 import Solutions.Day11 qualified as D11
 import Solutions.Day12 qualified as D12
+import Solutions.Day18 qualified as D18
 
 
 main :: IO ()
@@ -51,6 +52,7 @@ run (Day d) part = do
     10 -> print $ chooseSolver D10.solveP1 D10.solveP2 part input
     11 -> print $ chooseSolver D11.solveP1 D11.solveP2 part input
     12 -> print $ chooseSolver D12.solveP1 D12.solveP2 part input
+    18 -> print $ chooseSolver D18.solveP1 D18.solveP2 part input
     _ -> putTextLn "Invalid day"
   endTime <- getCPUTime
 
